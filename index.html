@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Air Traffic Control Web Application">
+    <title>Cloud-Optimized ATC System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.5/dist/lottie-player.js"></script>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-brand">
+                <div class="logo-container">
+                    <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Logo" style="max-width: 70px; height: auto;">
+                    <span class="logo-text">&nbsp;AirNav System</span>
+                </div>                
+            </a>
+            
+            <div class="navbar-links">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#flight-tracker" class="nav-link">Flight Tracker</a>
+                <a href="#dashboard" class="nav-link">Admin Dashboard</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Home Section -->
+    <section id="home" class="home">
+        <div class="container">
+            <h1>Welcome to AirNav System</h1>
+            <p>Cloud-Optimized Air Traffic Control Solution</p>
+            <div id="container-vid">
+                <video autoplay muted loop>
+                   <source src="{{ url_for('static', filename='videos/Animation.mp4') }}" type="video/mp4">
+                  <!--  <lottie-player src="/assets/lottie/Animation.webm" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>-->
+                    Your browser does not support the video tag.Here’s an image instead:
+                    <img src="{{ url_for('static', filename='fallback_image.jpg') }}" alt="Air Traffic Control">
+                </video>                
+            </div>            
+        </div>
+    </section>
+
+    <!-- Flight Tracker Section -->
+    <section id="flight-tracker" class="section">
+        <div class="container">
+            <h2 class="text-center" id = "flight-tracker-text">Real-Time Flight Tracker</h2>
+            <div id="map" class="map"></div>
+        </div>
+    </section>
+
+    <!-- Admin Dashboard Section -->
+<section id="dashboard" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Admin Dashboard</h2>
+        <p class="text-center mb-5">Monitor flights, manage congestion, and reroute efficiently.</p>
+        <div class="row justify-content-center">
+            <!-- First Card - Congestion Predictions -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">Congestion Predictions</h5>
+                        <p class="card-text">Visualize potential airspace congestion and take action.</p>
+                        <button class="btn" id="congestion-button"  class="accessible-button" aria-label="Congestion Predictions" onclick="showCongestion()"> <i class="fas fa-chart-line"></i> &nbsp; View Predictions</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Card - Flight Rerouting -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">Flight Rerouting</h5>
+                        <p class="card-text">Reroute flights dynamically based on real-time data.</p>
+                        <button class="btn" id="reroute-button"  class="accessible-button" aria-label="Flight Rerouting" onclick="rerouteFlight()"> <i class="fas fa-route"></i> &nbsp; Simulate Rerouting</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Third Card - Real-Time Updates -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">Real-Time Updates</h5>
+                        <p class="card-text">Get live updates of flights and air traffic conditions.</p>
+                        <button class="btn" id="real-time-update-button"  class="accessible-button" aria-label="Real-time Updates" onclick="getRealTimeUpdates()">  <i class="fas fa-sync-alt"></i> &nbsp; Show Updates</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="output-section">
+            <h2>Output:</h2>
+            <div id="output-content"></div>
+        </div>
+    </div>
+</section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="text-center">Contact Us</h2>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone_number">Phone Number</label>
+                        <input type="text" id="phone_number" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-control" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 AirNav System. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+</body>
+</html>
